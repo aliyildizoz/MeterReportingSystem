@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MeterService", "MeterService", "{3404C939-E092-4B3D-A723-DD7914FF15C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportService", "{5881BC52-B73F-4E88-AA77-CF6CE9F204B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{E904E190-45F1-4218-9704-4F3DCC1C4A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterService", "MeterService\MeterService.csproj", "{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterServiceTests", "MeterServiceTests\MeterServiceTests.csproj", "{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService", "ReportService\ReportService.csproj", "{E60F110E-1FED-4968-AEAE-2E845E126BF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3} = {3404C939-E092-4B3D-A723-DD7914FF15C6}
+		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8} = {3404C939-E092-4B3D-A723-DD7914FF15C6}
+		{E60F110E-1FED-4968-AEAE-2E845E126BF6} = {5881BC52-B73F-4E88-AA77-CF6CE9F204B5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EC5C05DC-1296-4EF0-9BFD-D383D0808B0C}
+	EndGlobalSection
+EndGlobal
