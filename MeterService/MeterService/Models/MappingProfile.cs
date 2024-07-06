@@ -7,7 +7,7 @@ namespace MeterService.Models
     {
         public MappingProfile()
         {
-            //CreateMap<MeterReading,MeterReadingDTO>().ForMember(dest=>dest.Id,act=>act.MapFrom(src=>src.Id.ToString())).ForMember(dest => dest.ReadingTime, act => act.MapFrom(src => Timestamp.FromDateTime(src.ReadingTime.ToUniversalTime()))).ReverseMap();
+            CreateMap<MeterReading, MeterReadingDto>().ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id.ToString())).ForMember(dest => dest.ReadingTime, act => act.MapFrom(src => Timestamp.FromDateTime(src.ReadingTime.ToUniversalTime()))).ReverseMap();
         }
     }
 }

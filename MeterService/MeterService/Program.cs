@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Grpc.AspNetCore.Web;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
 {
     builder.AllowAnyOrigin()
@@ -17,8 +15,8 @@ builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
            .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding")
            .WithOrigins("http://localhost:5002");
 }));
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGrpc(options =>
