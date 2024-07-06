@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{E904E190-45F1-4218-9704-4F3DCC1C4A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterService", "MeterService\MeterService.csproj", "{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterService", "MeterService\MeterService\MeterService.csproj", "{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterServiceTests", "MeterServiceTests\MeterServiceTests.csproj", "{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterServiceTests", "MeterService\MeterServiceTests\MeterServiceTests.csproj", "{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService", "ReportService\ReportService.csproj", "{E60F110E-1FED-4968-AEAE-2E845E126BF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService", "ReportService\ReportService\ReportService.csproj", "{E60F110E-1FED-4968-AEAE-2E845E126BF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
