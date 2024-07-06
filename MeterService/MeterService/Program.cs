@@ -58,7 +58,7 @@ app.UseAuthorization();
 app.UseCors();
 
 app.MapControllers();
-app.MapGrpcService<MeterService.Services.MeterGRPCService>().EnableGrpcWeb().RequireCors("AllowAll");
+app.MapGrpcService<MeterService.gRPC.Services.MeterGrpcService>().EnableGrpcWeb().RequireCors("AllowAll");
 
 
 using (var scope = app.Services.CreateScope())

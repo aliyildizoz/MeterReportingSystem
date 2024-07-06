@@ -27,7 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\metergRPCService.proto" GrpcServices="Server" />
+    <Protobuf Include="gRPC\Protos\meterGrpcService.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   
 </Project>

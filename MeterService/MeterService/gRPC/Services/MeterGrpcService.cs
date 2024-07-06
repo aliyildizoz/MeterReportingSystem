@@ -5,14 +5,14 @@ using MeterService.Data;
 using MeterService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MeterService.Services
+namespace MeterService.gRPC.Services
 {
-    public class MeterGRPCService: MetergRPCService.MetergRPCServiceBase
+    public class MeterGrpcService : MeterService.MeterGrpcService.MeterGrpcServiceBase
     {
         private readonly MeterContext _context;
         private readonly IMapper _mapper;
 
-        public MeterGRPCService(MeterContext context,IMapper mapper)
+        public MeterGrpcService(MeterContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -23,13 +23,12 @@ namespace MeterService.Services
                  .Where(m => m.SerialNumber == request.SerialNumber)
                  .OrderByDescending(m => m.ReadingTime).ToListAsync();
 
-            var res = readings.Select(_mapper.Map<MeterReadingDTO>).ToList();
-            //var res = _mapper.Map<List<MeterReading>, List<MeterReadingDTO>>(readings);
-
-            var response =  new MeterReadingResponse();
-            response.MeterReadingDTOs.AddRange(res);
+            var res = readings.Select(_mapper.Map<MeterReadingDto>).ToList();
+            var response = new MeterReadingResponse();
+            response.MeterReadingDtos.AddRange(res);
 
             return response;
         }
+
     }
 }
