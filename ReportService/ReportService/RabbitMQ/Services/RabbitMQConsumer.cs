@@ -1,33 +1,32 @@
 ﻿using RabbitMQ.Client.Events;
-using Share;
 using System.Text.Json;
 using System.Text;
 using RabbitMQ.Client;
 using ReportService.Data;
 using ReportService.Models;
-using static MeterService.MetergRPCService;
 using OfficeOpenXml;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml.Style;
 using MeterService;
 using Google.Protobuf.WellKnownTypes;
+using ReportService.gRPC.Services;
 
-namespace ReportService.BackroundServices
+namespace ReportService.RabbitMQ.Services
 {
     public class RabbitMQConsumer : BackgroundService
     {
         private readonly RabbitMQClientService _rabbitMQClientService;
         private readonly ReportContext _reportContext;
-        private readonly MetergRPCServiceClient _metergRPCService;
+        private readonly IMeterGrpcService _metergGrpcService;
         private readonly ILogger<RabbitMQConsumer> _logger;
         private IModel _channel;
 
-        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, ReportContext reportContext, MetergRPCServiceClient metergRPCService)
+        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, ReportContext reportContext, IMeterGrpcService metergGrpcService)
         {
             _logger = logger;
             _rabbitMQClientService = rabbitMQClientService;
             _reportContext = reportContext;
-            _metergRPCService = metergRPCService;
+            _metergGrpcService = metergGrpcService;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -45,12 +44,12 @@ namespace ReportService.BackroundServices
         }
 
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs @event)
-       {
+        {
             try
             {
 
                 var requestModel = JsonSerializer.Deserialize<RabbitMQReportRequestModel>(Encoding.UTF8.GetString(@event.Body.ToArray()));
-                var response = await _metergRPCService.GetMetersBySerialNumberAsync(new MeterService.MeterReadingRequest() { SerialNumber = requestModel.SerialNumber });
+                var response = await _metergGrpcService.GetMetersBySerialNumberAsync(new MeterReadingRequest() { SerialNumber = requestModel.SerialNumber });
 
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
@@ -79,9 +78,9 @@ namespace ReportService.BackroundServices
 
                 int recordIndex = 2;
 
-                foreach (var item in response.MeterReadingDTOs)
+                foreach (var item in response.MeterReadingDtos)
                 {
-                    if (item !=null)
+                    if (item != null)
                     {
                         workSheet.Cells[recordIndex, 1].Value = (recordIndex - 1).ToString();
                         workSheet.Cells[recordIndex, 2].Value = item.Id;

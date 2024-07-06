@@ -8,6 +8,10 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="gRPC\Protos\meterGrpcService.proto" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.2.1" />
@@ -35,10 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\metergRPCService.proto" GrpcServices="Client" />
+    <Folder Include="BackroundServices\" />
+    <Folder Include="wwwroot\reports\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\reports\" />
+    <Protobuf Include="gRPC\Protos\meterGrpcService.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

@@ -1,29 +1,16 @@
-using Grpc.Net.Client.Configuration;
-using Grpc.Net.Client.Web;
-using MeterService;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ.Client;
-using ReportService.BackroundServices;
 using ReportService.Data;
-using Share;
-using System.Net;
+using ReportService.gRPC;
+using ReportService.RabbitMQ;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-builder.Services.AddGrpcClient<MetergRPCService.MetergRPCServiceClient>(c =>
-{
-    c.Address = new Uri(builder.Configuration.GetConnectionString("MeterService"));
-});
-
-
-builder.Services.AddHostedService<RabbitMQConsumer>();
+builder.Services.AddMeterGrpcService(builder.Configuration);
 
 builder.Services.AddDbContext<ReportContext>(
                        options =>
@@ -37,9 +24,8 @@ builder.Services.AddDbContext<ReportContext>(
                            options.UseSqlServer(connectionString);
 
                        }, ServiceLifetime.Singleton);
-builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
-builder.Services.AddSingleton<RabbitMQClientService>();
-builder.Services.AddSingleton<RabbitMQPublisher>();
+
+builder.Services.AddRabbitMQServices(builder.Configuration);
 
 var app = builder.Build();
 

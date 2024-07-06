@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Share;
+using ReportService.RabbitMQ.Services;
 
 namespace ReportService.Controllers
 {

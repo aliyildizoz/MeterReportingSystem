@@ -3,7 +3,7 @@ using ReportService.Models;
 using System.Text;
 using System.Text.Json;
 
-namespace Share
+namespace ReportService.RabbitMQ.Services
 {
     public class RabbitMQPublisher
     {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using IModel = RabbitMQ.Client.IModel;
 
-namespace Share
+namespace ReportService.RabbitMQ.Services
 {
     public class RabbitMQClientService : IDisposable
     {
@@ -14,7 +14,7 @@ namespace Share
         private IConnection _connection;
         private IModel _channel;
         public static string ExchangeName = "MeterReportExchange";
-        public static string RoutingMeterReport= "meter-report-route";
+        public static string RoutingMeterReport = "meter-report-route";
         public static string QueueName = "meter-report-queue";
 
         public RabbitMQClientService(ConnectionFactory connectionFactory, ILogger<RabbitMQClientService> logger)
@@ -25,11 +25,11 @@ namespace Share
 
         public IModel Connect()
         {
-            this._connection = _connectionFactory.CreateConnection();
+            _connection = _connectionFactory.CreateConnection();
 
             if (_channel is { IsOpen: true })
             {
-                return this._channel;
+                return _channel;
             }
 
             _channel = _connection.CreateModel();
