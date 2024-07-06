@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "MeterService";
+
+package greet;
+
+service MeterGrpcService {
+  rpc GetMetersBySerialNumber (MeterReadingRequest) returns (MeterReadingResponse);
+}
+
+message MeterReadingRequest {
+  string serialNumber = 1;
+}
+
+message MeterReadingResponse {
+	repeated MeterReadingDto meterReadingDtos = 1; 
+}
+
+message MeterReadingDto {
+  string id = 1;
+  string serialNumber = 2;
+  google.protobuf.Timestamp readingTime = 3;
+  double endIndex = 4;
+  double voltage = 5;
+  double current = 6;
+}
+
+
