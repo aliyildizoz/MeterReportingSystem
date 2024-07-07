@@ -11,9 +11,7 @@ builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
            .AllowAnyHeader()
-           .AllowCredentials()
-           .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding")
-           .WithOrigins("http://localhost:5002");
+           .WithOrigins("http://localhost:5002", "http://localhost:4200");
 }));
 
 builder.Services.AddControllers();
@@ -53,7 +51,7 @@ app.UseRouting();
 
 app.UseGrpcWeb();
 app.UseAuthorization();
-app.UseCors();
+app.UseCors("AllowAll");
 
 app.MapControllers();
 app.MapGrpcService<MeterService.gRPC.Services.MeterGrpcService>().EnableGrpcWeb().RequireCors("AllowAll");
