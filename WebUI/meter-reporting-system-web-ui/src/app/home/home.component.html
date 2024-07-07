@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-6 offset-3 mt-4">
+    <div class="d-flex me-4">
+      <input class="form-control me-2" type="search" [(ngModel)]="serialNumber" placeholder="Serial Number">
+      <button class="btn btn-sm btn-outline-success" (click)="search()">Get Last Reading</button>
+    </div>
+  </div>
+  <div class="col-6 offset-3 mt-4">
+    <div *ngIf="this.meterReading.id==''"
+      [ngClass]="{'alert-primary': alert === 'info','alert-warning': alert === 'warning','alert-danger': alert === 'error'}"
+      class="alert">
+      {{ message }}
+    </div>
+    <table class="table table-bordered" *ngIf="this.meterReading.id!=''">
+      <tbody>
+        <tr>
+          <th scope="col">Id</th>
+          <td>{{meterReading.id}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Serial Number</th>
+          <td>{{meterReading.serialNumber}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Last Reading Time</th>
+          <td>{{meterReading.readingTime}}</td>
+        </tr>
+        <tr>
+          <th scope="col">End Index</th>
+          <td>{{meterReading.endIndex}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Voltage</th>
+          <td>{{meterReading.voltage}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Current</th>
+          <td>{{meterReading.current}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

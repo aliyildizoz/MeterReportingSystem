@@ -1,0 +1,92 @@
+
+<div class="row mt-3">
+  <div class="col-6 offset-3">
+    <h3 *ngIf="isNew">Create New Meter Record</h3>
+    <h3 *ngIf="!isNew">Meter Details {{meterReading.serialNumber}}</h3>
+    <hr>
+    <div *ngIf="this.meterReading.id=='' && !isNew"
+    [ngClass]="{'alert-primary': alert === 'info','alert-warning': alert === 'warning','alert-danger': alert === 'error'}"
+    class="alert">
+    {{ message }}
+  </div>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col-6 offset-3" *ngIf="!isNew && this.meterReading.id!=''">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="col">Id</th>
+          <td>{{meterReading.id}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Serial Number</th>
+          <td>{{meterReading.serialNumber}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Last Reading Time</th>
+          <td>{{meterReading.readingTime}}</td>
+        </tr>
+        <tr>
+          <th scope="col">End Index</th>
+          <td>{{meterReading.endIndex}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Voltage</th>
+          <td>{{meterReading.voltage}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Current</th>
+          <td>{{meterReading.current}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-6 offset-3" *ngIf="isNew">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="col">Serial Number</th>
+          <td>
+            <input type="text" class="form-control" [formControl]="serialNumber" [(ngModel)]="meterReading.serialNumber">
+            <span class="text-danger" *ngIf="!valid">Serial Number must be less than 8 charecter.</span>
+          </td>
+        </tr>
+        <tr>
+          <th scope="col">Last Reading Time</th>
+          <td>
+            <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              [(ngModel)]="readingTime"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">  <fa-icon [icon]="faCalendar" class="fa-lg text-primary"></fa-icon></button>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <th scope="col">End Index</th>
+          <td><input type="number" class="form-control" [(ngModel)]="meterReading.endIndex"></td>
+        </tr>
+        <tr>
+          <th scope="col">Voltage</th>
+          <td><input type="number" class="form-control" [(ngModel)]="meterReading.voltage"></td>
+        </tr>
+        <tr>
+          <th scope="col">Current</th>
+          <td><input type="number" class="form-control" [(ngModel)]="meterReading.current"></td>
+        </tr>
+
+        <tr>
+          <th scope="col">#</th>
+          <td> <button class="btn btn-outline-success w-100" (click)="save()" [disabled]="disable" type="button">Save</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

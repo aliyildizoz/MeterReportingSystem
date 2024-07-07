@@ -1,0 +1,42 @@
+<div class="row mt-3">
+  <div class="col-6 offset-3">
+    <h3>Report Details {{reportRequest.serialNumber}}</h3>
+    <hr>
+    <div *ngIf="this.reportRequest.id==''"
+      [ngClass]="{'alert-primary': alert === 'info','alert-warning': alert === 'warning','alert-danger': alert === 'error'}"
+      class="alert">
+      {{ message }}
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3" *ngIf="this.reportRequest.id!=''">
+  <div class="col-6 offset-3">
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th scope="col">Id</th>
+          <td>{{reportRequest.id}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Serial Number</th>
+          <td>{{reportRequest.serialNumber}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Request Date</th>
+          <td>{{reportRequest.requestDate}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Status</th>
+          <td [ngClass]="{'bg-success': reportRequest.status==1,'text-white':reportRequest.status==1}">
+            {{converStatus(reportRequest.status)}}</td>
+        </tr>
+        <tr>
+          <th scope="col">#</th>
+          <td> <button class="btn btn-outline-success w-100" (click)="download()" [disabled]="reportRequest.status!=1"
+              type="button">Download</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
