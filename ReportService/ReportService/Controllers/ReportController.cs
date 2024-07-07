@@ -31,9 +31,9 @@ namespace ReportService.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReportRequest>> GetReportRequest(Guid id)
+        public async Task<ActionResult<ReportRequest>> GetReportRequest(string id)
         {
-            var reportRequest = await _context.ReportRequests.FindAsync(id);
+            var reportRequest = await _context.ReportRequests.FirstOrDefaultAsync(r => r.Id == Guid.Parse(id));
 
             if (reportRequest == null)
             {
@@ -41,6 +41,23 @@ namespace ReportService.Controllers
             }
 
             return Ok(reportRequest);
+        }
+
+        [HttpGet("Download/{id}")]
+        public async Task<ActionResult<ReportRequest>> Download(string id)
+        {
+            var reportRequest = await _context.ReportRequests.FirstOrDefaultAsync(r => r.Id == Guid.Parse(id));
+
+            if (!System.IO.File.Exists(reportRequest.ReportPath))
+                return NotFound();
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(reportRequest.ReportPath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", reportRequest.SerialNumber);
         }
 
         [HttpPost]

@@ -17,16 +17,16 @@ namespace ReportService.RabbitMQ.Services
     public class RabbitMQConsumer : BackgroundService
     {
         private readonly RabbitMQClientService _rabbitMQClientService;
-        private readonly ReportContext _reportContext;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IMeterGrpcService _metergGrpcService;
         private readonly ILogger<RabbitMQConsumer> _logger;
         private IModel _channel;
 
-        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, ReportContext reportContext, IMeterGrpcService metergGrpcService)
+        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, IServiceProvider serviceProvider, IMeterGrpcService metergGrpcService)
         {
             _logger = logger;
             _rabbitMQClientService = rabbitMQClientService;
-            _reportContext = reportContext;
+            _serviceProvider = serviceProvider;
             _metergGrpcService = metergGrpcService;
         }
 
@@ -48,20 +48,23 @@ namespace ReportService.RabbitMQ.Services
         {
             try
             {
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var requestModel = JsonSerializer.Deserialize<RabbitMQReportRequestModel>(Encoding.UTF8.GetString(@event.Body.ToArray()));
+                    var response = await _metergGrpcService.GetMetersBySerialNumberAsync(new MeterReadingRequest() { SerialNumber = requestModel.SerialNumber });
 
-                var requestModel = JsonSerializer.Deserialize<RabbitMQReportRequestModel>(Encoding.UTF8.GetString(@event.Body.ToArray()));
-                var response = await _metergGrpcService.GetMetersBySerialNumberAsync(new MeterReadingRequest() { SerialNumber = requestModel.SerialNumber });
+                    var filePath = ExcelHelper.CreateExcel(response.MeterReadingDtos.ToList(), requestModel.SerialNumber);
+                    var reportContext = scope.ServiceProvider.GetService<ReportContext>(); 
+                    var report = await reportContext.ReportRequests.FirstOrDefaultAsync(x => x.Id == requestModel.Id);
+                    report.Status = Status.Completed;
+                    report.ReportPath = filePath;
+                    await reportContext.SaveChangesAsync();
 
-                var filePath = ExcelHelper.CreateExcel(response.MeterReadingDtos.ToList(), requestModel.SerialNumber);
+                    //todo:notification with signalR
 
-                var report = await _reportContext.ReportRequests.FirstOrDefaultAsync(x => x.Id == requestModel.Id);
-                report.Status = Status.Completed;
-                report.ReportPath = filePath;
-                await _reportContext.SaveChangesAsync();
-
-                //todo:notification with signalR
-
-                _channel.BasicAck(@event.DeliveryTag, false);
+                    _channel.BasicAck(@event.DeliveryTag, false);
+                }
+              
             }
             catch (Exception ex)
             {
