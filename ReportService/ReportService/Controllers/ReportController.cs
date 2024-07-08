@@ -16,8 +16,8 @@ namespace ReportService.Controllers
     {
         private readonly ReportContext _context;
         private readonly ILogger<ReportController> _logger;
-        private readonly RabbitMQPublisher _rabbitMQPublisher;
-        public ReportController(ILogger<ReportController> logger, ReportContext context, RabbitMQPublisher rabbitMQPublisher)
+        private readonly IRabbitMQPublisher _rabbitMQPublisher;
+        public ReportController(ILogger<ReportController> logger, ReportContext context, IRabbitMQPublisher rabbitMQPublisher)
         {
             _context = context;
             _logger = logger;

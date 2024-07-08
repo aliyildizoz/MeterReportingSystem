@@ -10,7 +10,7 @@ namespace ReportService.RabbitMQ
             services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
             services.AddHostedService<RabbitMQConsumer>();
             services.AddSingleton<RabbitMQClientService>();
-            services.AddSingleton<RabbitMQPublisher>();
+            services.AddSingleton<IRabbitMQPublisher, RabbitMQPublisher>();
         }
     }
 }

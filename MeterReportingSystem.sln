@@ -9,11 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{E904E190-45F1-4218-9704-4F3DCC1C4A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterService", "MeterService\MeterService\MeterService.csproj", "{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeterService", "MeterService\MeterService\MeterService.csproj", "{8D7D9015-9F71-4492-A2C9-CF580BC51DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterServiceTests", "MeterService\MeterServiceTests\MeterServiceTests.csproj", "{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeterServiceTests", "MeterService\MeterServiceTests\MeterServiceTests.csproj", "{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportService", "ReportService\ReportService\ReportService.csproj", "{E60F110E-1FED-4968-AEAE-2E845E126BF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService", "ReportService\ReportService\ReportService.csproj", "{E60F110E-1FED-4968-AEAE-2E845E126BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportServiceTests", "ReportService\ReportServiceTests\ReportServiceTests.csproj", "{0DA0738D-DC7C-4DC3-9A4B-D0623840047D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E60F110E-1FED-4968-AEAE-2E845E126BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA0738D-DC7C-4DC3-9A4B-D0623840047D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA0738D-DC7C-4DC3-9A4B-D0623840047D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA0738D-DC7C-4DC3-9A4B-D0623840047D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA0738D-DC7C-4DC3-9A4B-D0623840047D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{8D7D9015-9F71-4492-A2C9-CF580BC51DD3} = {3404C939-E092-4B3D-A723-DD7914FF15C6}
 		{17AEFE78-EC9D-4BA8-A98A-26764AEDDBF8} = {3404C939-E092-4B3D-A723-DD7914FF15C6}
 		{E60F110E-1FED-4968-AEAE-2E845E126BF6} = {5881BC52-B73F-4E88-AA77-CF6CE9F204B5}
+		{0DA0738D-DC7C-4DC3-9A4B-D0623840047D} = {5881BC52-B73F-4E88-AA77-CF6CE9F204B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EC5C05DC-1296-4EF0-9BFD-D383D0808B0C}

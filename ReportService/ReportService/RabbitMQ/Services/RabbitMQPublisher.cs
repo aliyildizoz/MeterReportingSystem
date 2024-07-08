@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace ReportService.RabbitMQ.Services
 {
-    public class RabbitMQPublisher
+    public class RabbitMQPublisher : IRabbitMQPublisher
     {
         private readonly RabbitMQClientService _rabbitMQClientService;
 
