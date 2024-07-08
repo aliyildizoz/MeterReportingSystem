@@ -3,6 +3,7 @@ version: "3.8"
 services:
   meter-service:
     container_name: meter-service-container
+    image: aliyildizoz909/meter-service:latest
     build:
       context: .
       dockerfile: MeterService/MeterService/Dockerfile
@@ -19,6 +20,7 @@ services:
       - meter-service-sqlserver
   report-service:
     container_name: report-service-container
+    image: aliyildizoz909/report-service:latest
     build:
       context: .
       dockerfile: ReportService/ReportService/Dockerfile
@@ -68,6 +70,7 @@ services:
       - "5672:5672"
   webui:
     container_name: meter-reporting-system-web-ui-container
+    image: aliyildizoz909/meter-reporting-system-web-ui:latest
     build:
       context: .
       dockerfile: WebUI/meter-reporting-system-web-ui/Dockerfile
