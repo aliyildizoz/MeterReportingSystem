@@ -23,13 +23,14 @@ builder.Services.AddMeterGrpcService(builder.Configuration);
 builder.Services.AddDbContext<ReportContext>(
                        options =>
                        {
-                           var connectionString = builder.Configuration.GetConnectionString("SqlServer");
+                           var connectionString = builder.Configuration.GetConnectionString("PostgreSql");
                            if (!builder.Environment.IsDevelopment())
                            {
-                               var password = Environment.GetEnvironmentVariable("MSSQL_SA_PASSWORD");
-                               connectionString = string.Format(connectionString, password);
+                               var password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
+                               var db = Environment.GetEnvironmentVariable("POSTGRES_DB");
+                               connectionString = string.Format(connectionString, password,db);
                            }
-                           options.UseSqlServer(connectionString);
+                           options.UseNpgsql(connectionString);
 
                        }, ServiceLifetime.Transient);
 

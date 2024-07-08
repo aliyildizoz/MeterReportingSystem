@@ -15,11 +15,11 @@ namespace ReportService.Migrations
                 name: "ReportRequests",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SerialNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    RequestDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    ReportPath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    SerialNumber = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    RequestDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    ReportPath = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

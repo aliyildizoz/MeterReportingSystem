@@ -17,6 +17,24 @@ services:
       - meter-report-system-network
     depends_on:
       - meter-service-sqlserver
+  report-service:
+    container_name: report-service-container
+    build:
+      context: .
+      dockerfile: ReportService/ReportService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:3516
+      - POSTGRES_DB=ReportDb
+      - POSTGRES_PASSWORD=Password1*
+    ports:
+      - "3516:3516"
+    networks:
+      - meter-report-system-network
+    depends_on:
+      - rabbitmq-server
+      - meter-service
+      - report-service-postgresql
   meter-service-sqlserver:
     container_name: meter-service-sqlserver-container
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -29,33 +47,17 @@ services:
       - meter-service-volume:/var/opt/mssql
     networks:
       - meter-report-system-network
-  report-service:
-    container_name: report-service-container
-    build:
-      context: .
-      dockerfile: ReportService/ReportService/Dockerfile
+  report-service-postgresql:
+    container_name: report-service-postgresql-container
+    image: postgres:latest
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - MSSQL_SA_PASSWORD=Password1*
-      - ASPNETCORE_URLS=http://+:3516
+      - POSTGRES_PASSWORD=Password1*
+      - POSTGRES_DB=ReportDb
+      - PGDATA=/var/lib/postgresql/data/db-files/
     ports:
-      - "3516:3516"
-    networks:
-      - meter-report-system-network
-    depends_on:
-      - rabbitmq-server
-      - meter-service
-      - report-service-sqlserver
-  report-service-sqlserver:
-    container_name: report-service-sqlserver-container
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=Password1*
-    ports:
-      - "1432:1433"
+      - "5430:5432"
     volumes:
-      - report-service-volume:/var/opt/mssql
+      - report-service-volume:/var/lib/postgresql/data
     networks:
       - meter-report-system-network
   rabbitmq-server:
