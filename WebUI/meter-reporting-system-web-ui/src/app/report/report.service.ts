@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ReportService {
 
-  private baseUrl = "http://localhost:5002/api/report";
+  private baseUrl = "http://localhost:3516/api/report";
 
   private url = (path: string) => `${this.baseUrl}/${path}`;
   constructor(private http: HttpClient) { }

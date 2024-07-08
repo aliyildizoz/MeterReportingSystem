@@ -40,12 +40,8 @@ builder.Services.AddDbContext<MeterContext>(
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseRouting();
 
 
@@ -56,7 +52,7 @@ app.UseCors("AllowAll");
 app.MapControllers();
 app.MapGrpcService<MeterService.gRPC.Services.MeterGrpcService>().EnableGrpcWeb().RequireCors("AllowAll");
 
-
+Thread.Sleep(30000);
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MeterContext>();

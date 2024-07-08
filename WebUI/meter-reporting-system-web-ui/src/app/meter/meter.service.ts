@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class MeterService {
 
-  private baseUrl = "http://localhost:5000/api/meter";
+  private baseUrl = "http://localhost:3515/api/meter";
 
   private url = (path: string) => `${this.baseUrl}/${path}`;
   constructor(private http: HttpClient) { }

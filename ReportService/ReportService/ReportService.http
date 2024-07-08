@@ -1,4 +1,4 @@
-@ReportService_HostAddress = http://localhost:5097
+@ReportService_HostAddress = http://localhost:3516
 
 GET {{ReportService_HostAddress}}/api/
 Accept: application/json

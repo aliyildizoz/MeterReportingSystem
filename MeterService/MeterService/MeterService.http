@@ -1,4 +1,4 @@
-@MeterService_HostAddress = http://localhost:5101
+@MeterService_HostAddress = http://localhost:3515
 
 GET {{MeterService_HostAddress}}/api/
 Accept: application/json

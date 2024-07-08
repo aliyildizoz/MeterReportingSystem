@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  meter-service:
+    container_name: meter-service-container
+    build:
+      context: .
+      dockerfile: MeterService/MeterService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MSSQL_SA_PASSWORD=Password1*
+      - ASPNETCORE_URLS=http://+:3514;http://+:3515
+    ports:
+      - "3514:3514"
+      - "3515:3515"
+    networks:
+      - meter-report-system-network
+    depends_on:
+      - meter-service-sqlserver
+  meter-service-sqlserver:
+    container_name: meter-service-sqlserver-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1*
+    ports:
+      - "1433:1433"
+    volumes:
+      - meter-service-volume:/var/opt/mssql
+    networks:
+      - meter-report-system-network
+  report-service:
+    container_name: report-service-container
+    build:
+      context: .
+      dockerfile: ReportService/ReportService/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MSSQL_SA_PASSWORD=Password1*
+      - ASPNETCORE_URLS=http://+:3516
+    ports:
+      - "3516:3516"
+    networks:
+      - meter-report-system-network
+    depends_on:
+      - rabbitmq-server
+      - meter-service
+      - report-service-sqlserver
+  report-service-sqlserver:
+    container_name: report-service-sqlserver-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Password1*
+    ports:
+      - "1432:1433"
+    volumes:
+      - report-service-volume:/var/opt/mssql
+    networks:
+      - meter-report-system-network
+  rabbitmq-server:
+    container_name: rabbitmq-server
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  webui:
+    container_name: meter-reporting-system-web-ui-container
+    build:
+      context: .
+      dockerfile: WebUI/meter-reporting-system-web-ui/Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - meter-report-system-network
+    depends_on:
+      - meter-service
+      - report-service
+volumes:
+  meter-service-volume:
+  report-service-volume:
+networks:
+  meter-report-system-network:

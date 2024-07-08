@@ -32,7 +32,7 @@ namespace ReportService.RabbitMQ.Services
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            Thread.Sleep(3000);
+            Thread.Sleep(30000);
             _channel = _rabbitMQClientService.Connect();
             _channel.BasicQos(0, 1, false);
             return base.StartAsync(cancellationToken);

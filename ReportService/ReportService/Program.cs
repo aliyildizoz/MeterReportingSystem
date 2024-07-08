@@ -37,18 +37,14 @@ builder.Services.AddRabbitMQServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseRouting();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.UseStaticFiles();
 app.MapControllers();
-
+Thread.Sleep(30000);
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ReportContext>();
