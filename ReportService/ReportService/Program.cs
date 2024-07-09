@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ReportService.Data;
 using ReportService.gRPC;
+using ReportService.Hubs;
 using ReportService.RabbitMQ;
 
 
@@ -9,14 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
 {
-    builder.AllowAnyOrigin()
+    builder.WithOrigins("http://localhost:4200")
            .AllowAnyMethod()
            .AllowAnyHeader()
-           .WithOrigins("http://localhost:4200");
+           .AllowCredentials();
 }));
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 builder.Services.AddMeterGrpcService(builder.Configuration);
 
@@ -44,7 +47,11 @@ app.UseRouting();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.UseStaticFiles();
+app.MapHub<ReportNotificationHub>("/report-notification-hub");
+
 app.MapControllers();
+
+
 Thread.Sleep(30000);
 using (var scope = app.Services.CreateScope())
 {

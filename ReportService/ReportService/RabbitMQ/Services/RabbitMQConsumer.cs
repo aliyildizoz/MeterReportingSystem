@@ -11,6 +11,8 @@ using MeterService;
 using Google.Protobuf.WellKnownTypes;
 using ReportService.gRPC.Services;
 using ReportService.Helpers;
+using Microsoft.AspNetCore.SignalR;
+using ReportService.Hubs;
 
 namespace ReportService.RabbitMQ.Services
 {
@@ -20,14 +22,16 @@ namespace ReportService.RabbitMQ.Services
         private readonly IServiceProvider _serviceProvider;
         private readonly IMeterGrpcService _metergGrpcService;
         private readonly ILogger<RabbitMQConsumer> _logger;
+        private readonly IHubContext<ReportNotificationHub> _hubContext;
         private IModel _channel;
 
-        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, IServiceProvider serviceProvider, IMeterGrpcService metergGrpcService)
+        public RabbitMQConsumer(ILogger<RabbitMQConsumer> logger, RabbitMQClientService rabbitMQClientService, IServiceProvider serviceProvider, IMeterGrpcService metergGrpcService, IHubContext<ReportNotificationHub> hubContext)
         {
             _logger = logger;
             _rabbitMQClientService = rabbitMQClientService;
             _serviceProvider = serviceProvider;
             _metergGrpcService = metergGrpcService;
+            _hubContext = hubContext;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -61,6 +65,8 @@ namespace ReportService.RabbitMQ.Services
                     await reportContext.SaveChangesAsync();
 
                     //todo:notification with signalR
+
+                    await _hubContext.Clients.All.SendAsync("ReceiveNotification", report.SerialNumber, report.Id);
 
                     _channel.BasicAck(@event.DeliveryTag, false);
                 }
