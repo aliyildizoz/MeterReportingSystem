@@ -14,6 +14,7 @@ Bu proje, akıllı sayaçlardan gelen verilerin toplanması, işlenmesi ve rapor
   - **Entity Framework Core**
   - **PostgreSQL Database**
   - **RabbitMQ**
+  - **SignalR (Raporlar için Realtime Notification)**
   - **EPPlus (Excel dosyaları için)**
 
 - **Web UI**:
